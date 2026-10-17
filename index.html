@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zumnia Code</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#f5f7ff}
+header{padding:18px;background:#111a30;border-bottom:1px solid #293653}
+header h1{margin:0;color:#a78bfa;font-size:25px}
+header p{margin:6px 0 0;color:#bdc7dd;font-size:13px}
+main{padding:14px;max-width:1000px;margin:auto}
+h2{font-size:17px}
+button,select{padding:11px;border:0;border-radius:8px;font-weight:bold;cursor:pointer}
+button{background:#8b5cf6;color:white}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+textarea{width:100%;height:190px;background:#080c17;color:#c4f1d0;border:1px solid #34415d;border-radius:9px;padding:12px;font:13px monospace;resize:vertical}
+label{display:block;margin:14px 0 7px;color:#d9dff0}
+.panel{background:#131c31;border:1px solid #293653;border-radius:12px;padding:12px;margin-bottom:15px}
+iframe{width:100%;height:300px;background:white;border:0;border-radius:8px}
+.note{font-size:12px;color:#aebbd4;line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+<h1>✦ Zumnia Code</h1>
+<p>Seu espaço para criar sites com código</p>
+</header>
+<main>
+<div class="panel">
+<h2>🚀 Meu projeto</h2>
+<label for="modelo">Começar com um modelo</label>
+<select id="modelo" onchange="carregarModelo()">
+<option value="inicio">Página em branco</option>
+<option value="negocio">Site para um negócio</option>
+<option value="portfolio">Portfólio pessoal</option>
+<option value="produto">Página de produto</option>
+</select>
+<p class="note">Escolha um modelo ou escreva seu próprio código nos campos abaixo.</p>
+</div>
+<div class="panel">
+<h2>1. HTML</h2>
+<label for="html">Estrutura da página</label>
+<textarea id="html"><h1>Olá, Zumnia Code!</h1>
+<p>Meu primeiro site criado na minha própria plataforma.</p>
+<button onclick="alert('Está funcionando!')">Testar botão</button></textarea>
+<h2>2. CSS</h2>
+<label for="css">Estilo visual</label>
+<textarea id="css">body {
+  font-family: Arial;
+  padding: 25px;
+  color: #202944;
+}
+h1 { color: #7545d6; }
+button {
+  background: #7545d6;
+  color: white;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 8px;
+}</textarea>
+<h2>3. JavaScript</h2>
+<label for="js">Interatividade</label>
+<textarea id="js">console.log("Olá, Zumnia!");</textarea>
+<div class="actions">
+<button onclick="executar()">▶ Executar site</button>
+<button onclick="baixar()">⬇ Baixar HTML</button>
+<button onclick="limpar()">Limpar</button>
+</div>
+<p class="note">O código é executado na pré-visualização abaixo. Baixe o HTML para guardar uma cópia do projeto.</p>
+</div>
+<div class="panel">
+<h2>4. Pré-visualização</h2>
+<iframe id="preview" title="Pré-visualização do site" sandbox="allow-scripts"></iframe>
+</div>
+<div class="panel">
+<h2>✨ Assistente de criação</h2>
+<p class="note">Este assistente oferece modelos prontos. Ainda não é uma IA generativa conectada a um serviço externo.</p>
+<label for="pedido">O que você quer criar?</label>
+<textarea id="pedido" style="height:85px">Um site moderno para minha empresa</textarea>
+<div class="actions">
+<button onclick="ajudar()">Criar com modelo</button>
+</div>
+<p id="resposta" class="note"></p>
+</div>
+<footer class="note">Zumnia Code • Protótipo inicial • Feito para funcionar no navegador</footer>
+</main>
+<script>
+function executar(){
+const h=document.getElementById('html').value;
+const c=document.getElementById('css').value;
+const j=document.getElementById('js').value;
+const doc='<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><style>'+c+'</style></head><body>'+h+'<script>'+j.replace(/<\/script/gi,'<\\/script')+'<\/script></body></html>';
+document.getElementById('preview').srcdoc=doc;
+}
+function baixar(){
+const h=document.getElementById('html').value;
+const c=document.getElementById('css').value;
+const j=document.getElementById('js').value;
+const doc='<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+c+'</style></head><body>'+h+'<script>'+j.replace(/<\/script/gi,'<\\/script')+'<\/script></body></html>';
+const a=document.createElement('a');
+a.href=URL.createObjectURL(new Blob([doc],{type:'text/html'}));
+a.download='meu-site.html';a.click();
+URL.revokeObjectURL(a.href);
+}
+function limpar(){
+document.getElementById('html').value='';
+document.getElementById('css').value='';
+document.getElementById('js').value='';
+document.getElementById('preview').srcdoc='';
+}
+function carregarModelo(){
+const v=document.getElementById('modelo').value;
+const modelos={
+inicio:['','',''],
+negocio:['<h1>Minha Empresa</h1><p>Soluções feitas para você.</p><button>Fale conosco</button>','body{font-family:Arial;text-align:center;padding:40px;background:#f4f0ff}h1{color:#6034b0}button{padding:12px;background:#6034b0;color:white;border:0;border-radius:8px}',''],
+portfolio:['<h1>Meu Portfólio</h1><p>Olá! Este é meu trabalho.</p><h2>Meus projetos</h2><p>Projeto 1 • Projeto 2 • Projeto 3</p>','body{font-family:Arial;padding:30px;background:#101827;color:white}h1{color:#a78bfa}',''],
+produto:['<h1>Produto incrível</h1><p>Conheça uma solução feita para facilitar seu dia.</p><h2>R$ 49,90</h2><button>Tenho interesse</button>','body{font-family:Arial;text-align:center;padding:35px;background:#fff8ed;color:#332211}button{padding:14px;background:#e87532;color:white;border:0;border-radius:8px}','']
+};
+document.getElementById('html').value=modelos[v][0];
+document.getElementById('css').value=modelos[v][1];
+document.getElementById('js').value=modelos[v][2];
+executar();
+}
+function ajudar(){
+const p=document.getElementById('pedido').value.toLowerCase();
+let v='negocio';
+if(p.includes('portfólio')||p.includes('portfolio'))v='portfolio';
+if(p.includes('produto')||p.includes('loja')||p.includes('vender'))v='produto';
+document.getElementById('modelo').value=v;
+carregarModelo();
+document.getElementById('resposta').textContent='Modelo carregado! Edite os campos e toque em Executar site. Este recurso usa modelos locais, não uma IA externa.';
+}
+executar();
+</script>
+</body>
+</html>
